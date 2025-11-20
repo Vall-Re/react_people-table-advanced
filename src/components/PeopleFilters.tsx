@@ -12,7 +12,6 @@ export const PeopleFilters = () => {
 
   const resetCenturiesFilters = {
     centuries: null,
-    query: null,
   };
 
   const resetAllFilters = {

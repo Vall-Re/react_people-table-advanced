@@ -100,9 +100,19 @@ export const PeoplePage = () => {
       }
 
       if (query) {
-        sortedPeople = sortedPeople.filter(person =>
-          person.name.toLowerCase().includes(query?.toLowerCase()),
-        );
+        const loweQuery = query.toLowerCase();
+
+        sortedPeople = sortedPeople.filter(person => {
+          const nameMatch = person.name.toLowerCase().includes(loweQuery);
+          const motherMatch = person.motherName
+            ?.toLowerCase()
+            .includes(loweQuery);
+          const fatherMatch = person.fatherName
+            ?.toLowerCase()
+            .includes(loweQuery);
+
+          return nameMatch || motherMatch || fatherMatch;
+        });
       }
 
       setPeople(sortedPeople);
