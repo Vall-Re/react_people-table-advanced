@@ -1,10 +1,13 @@
 import { useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 export const Navbar = () => {
   useEffect(() => {
     document.documentElement.classList.add('has-navbar-fixed-top');
   }, []);
+
+  const location = useLocation();
+  const search = location.search;
 
   return (
     <nav
@@ -25,7 +28,7 @@ export const Navbar = () => {
           </NavLink>
 
           <NavLink
-            to="/people"
+            to={`/people${location.pathname.startsWith('/people') ? search : ''}`}
             aria-current="page"
             className={({ isActive }) =>
               `navbar-item ${isActive ? 'has-background-grey-lighter' : ''}`

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { SearchLink } from './SearchLink';
 import classNames from 'classnames';
@@ -12,11 +12,13 @@ export const PeopleFilters = () => {
 
   const resetCenturiesFilters = {
     centuries: null,
+    query: null,
   };
 
   const resetAllFilters = {
     sex: null,
     centuries: null,
+    query: null,
   };
 
   enum FilterSex {
@@ -36,16 +38,16 @@ export const PeopleFilters = () => {
   const arrowFilterSex = Object.entries(FilterSex);
   const arrowFilterCenturies = Object.entries(FilterCenturies);
 
-  const [searchQuery, setSearchQuery] = useState(
-    () => searchParams.get('query') || '',
-  );
-
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(event.target.value);
-
+    const newValue = event.target.value;
     const params = new URLSearchParams(searchParams);
 
-    params.set('query', event.target.value);
+    if (newValue === '') {
+      params.delete('query');
+    } else {
+      params.set('query', newValue);
+    }
+
     setSearchParams(params);
   };
 
@@ -87,7 +89,7 @@ export const PeopleFilters = () => {
             type="search"
             className="input"
             placeholder="Search"
-            value={searchQuery}
+            value={searchParams.get('query') || ''}
             onChange={handleSearchChange}
           />
 

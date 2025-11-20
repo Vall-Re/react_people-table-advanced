@@ -109,7 +109,8 @@ export const PeoplePage = () => {
     } else {
       setPeople(allPeople);
     }
-  }, [searchParams, allPeople, sort, order, query, sex, centuries]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams, allPeople]);
 
   return (
     <>
