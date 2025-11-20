@@ -1,4 +1,11 @@
+import { useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
+
 export const Navbar = () => {
+  useEffect(() => {
+    document.documentElement.classList.add('has-navbar-fixed-top');
+  }, []);
+
   return (
     <nav
       data-cy="nav"
@@ -8,17 +15,24 @@ export const Navbar = () => {
     >
       <div className="container">
         <div className="navbar-brand">
-          <a className="navbar-item" href="#/">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              `navbar-item ${isActive ? 'has-background-grey-lighter' : ''}`
+            }
+          >
             Home
-          </a>
+          </NavLink>
 
-          <a
+          <NavLink
+            to="/people"
             aria-current="page"
-            className="navbar-item has-background-grey-lighter"
-            href="#/people"
+            className={({ isActive }) =>
+              `navbar-item ${isActive ? 'has-background-grey-lighter' : ''}`
+            }
           >
             People
-          </a>
+          </NavLink>
         </div>
       </div>
     </nav>
